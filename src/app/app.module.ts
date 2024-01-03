@@ -8,12 +8,11 @@ import { routes } from './app.routes'; // If you're using app.routes.ts for rout
 
 @NgModule({
     declarations: [
-        MapComponent
     ],
     imports: [
         BrowserModule,
         RouterModule.forRoot(routes),
-        
+        MapComponent // Add MapComponent to imports
     ],
     providers: [],
 })

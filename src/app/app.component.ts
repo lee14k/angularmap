@@ -2,7 +2,6 @@
 import { Component } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router'; // Import RouterModule
-import { MapComponent } from '../app/map/map.component'; // Import MapComponent
 
 @Component({
   selector: 'app-root',

@@ -1,0 +1,11 @@
+.bigcontainer {
+    width:1700px;
+    height:1700px;
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.countryflag {
+    width:100px;
+    height:auto;
+}

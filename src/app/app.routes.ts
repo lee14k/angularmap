@@ -1,5 +1,7 @@
 import { Routes } from '@angular/router';
-import { MapComponent } from './map/map.component'; // Import the missing module from the correct file path
+import { MapComponent } from '../app/map/map.component'; 
 
-export const routes: Routes = [  { path: 'map', component: MapComponent },
+export const routes: Routes = [
+  { path: '', component: MapComponent },  // Set MapComponent for the default route
+  // ... (any other routes)
 ];

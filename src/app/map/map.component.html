@@ -1,9 +1,4 @@
-<ng-container *ngFor="let country of countries">
-   <path [id]="country.id" (click)="updateCountryAttributes(country.id)" [style.fill]="country.fillColor" />
-</ng-container>
-
-
-<div class="svg-container">
+<div class="svg-container" #svgContainer>
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1010 666" aria-label="World Map">
      
    <path
@@ -755,10 +750,12 @@
 
 </div>
 
-<div class="country-details">
+<div class="country-details" *ngIf="isCountrySelected">
    <h2>{{ countryData.name }}</h2>
    <p><strong>Capital:</strong> {{ countryData.capital }}</p>
    <p><strong>Region:</strong> {{ countryData.region }}</p>
    <p><strong>Income Level:</strong> {{ countryData.incomeLevel }}</p>
    <p><strong>Coordinates:</strong> {{ countryData.latitude }}, {{ countryData.longitude }}</p>
+  <img [src]="selectedCountryFlagUrl" alt="Country Flag">
+  <!-- Display other country details here -->
 </div>

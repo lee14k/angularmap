@@ -3,64 +3,57 @@ import {
   ElementRef,
   Renderer2,
   AfterViewInit,
-  OnInit,
-  OnDestroy,
+  ViewChild,
 } from '@angular/core';
 import { CountryService } from '../country.service'; 
-import { FlagService} from '../flag.service';
-import { Inject } from '@angular/core';
+import { CommonModule } from '@angular/common';
 @Component({
-  selector: 'app-map',
+ selector: 'app-map',
   standalone: true,
-
-  templateUrl: './map.component.html',
+  imports: [CommonModule],  templateUrl: './map.component.html',
   styleUrls: ['./map.component.css'],
 })
 export class MapComponent implements AfterViewInit {
-updateCountryAttributes(arg0: any) {
-throw new Error('Method not implemented.');
-}
-        countryData: any = {};
-    flag: any;
+@ViewChild('svgContainer') svgContainer!: ElementRef;
+countryData: any = {};
+flag: any;
+selectedCountryFlagUrl: string = '';
+    isCountrySelected: boolean = false; // This property will track if a country is selected
 
-        constructor(
-            private el: ElementRef,
-            private renderer: Renderer2,
-            private countryService: CountryService,
-  private flagService: FlagService        ) {}
+
+constructor(
+    private renderer: Renderer2,
+    private countryService: CountryService,
+) {}
+
 ngAfterViewInit() {
-    const countryPaths = this.el.nativeElement.querySelectorAll('path');
-    const countryPathsArray = Array.from(countryPaths);
-    countryPathsArray.forEach((path: unknown) => {
-        // Explicitly type 'path' as 'unknown' and cast it to 'HTMLElement'
-        this.renderer.listen(path as HTMLElement, 'click', (event) => {
-            this.onCountryClick(
-                event,
-                (path as HTMLElement).id,
-                (path as HTMLElement).getAttribute('name') as string
-            ); // Remove the 'countryCapital' parameter
+    const paths = this.svgContainer.nativeElement.querySelectorAll('path');
+    let pather = Array.from(paths) as SVGPathElement[]; // Specify the type of array elements
+    pather.forEach((path: SVGPathElement) => {
+        this.renderer.listen(path, 'click', (event) => {
+            const countryId = path.id;
+            const countryName = path.getAttribute('name') ?? '';
+            this.onCountryClick(event, countryId, countryName);
         });
     });
 }
 
-onCountryClick(event: MouseEvent, countryId: string, countryName: string) {
-  console.log('Clicked country:', countryName, 'with ID:', countryId);
+  onCountryClick(event: MouseEvent, countryId: string, countryName: string) {
+    console.log('Clicked country:', countryName, 'with ID:', countryId);
+    this.isCountrySelected = true; // Set to true when a country is clicked
 
-  // Use the service to get country details
-  this.countryService.getCountryInfoByName(countryId).subscribe((data: any) => {
-    this.countryData = this.countryService.processCountryData(data);
+    // Fetch country details and update
+    this.countryService.getCountryInfoByName(countryId).subscribe((data: any) => {
+      this.countryData = this.countryService.processCountryData(data);
 
-    // Get the flag URL
-    const flagUrl = this.countryService.getFlagUrl(countryId);
+  const flagUrl = this.countryService.getFlagUrl(countryId);
 
-    // Create the flag pattern and apply it to the country path
- this.flagService.createFlagPattern(event.target as HTMLElement, countryId, flagUrl);
-
-
-    // Apply the flag pattern as the background
-    this.flagService.applyFlagToCountry(event.target as SVGPathElement, countryId);
-  }, (error: any) => {
-    console.error('Error fetching data:', error);
-  });
-}
+  // Update your component's view to show the flag
+  // For example, you might set a component property that's bound to the template
+  this.selectedCountryFlagUrl = flagUrl;
+;
+    }, (error: any) => {
+      console.error('Error fetching data:', error);
+    });
+  }
 }

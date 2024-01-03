@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
-import { MapComponent } from '../components/map/map.component'; // Adjust path as necessary
+import { MapComponent } from '../app/map/map.component'; // Adjust path as necessary
 
 import { routes } from './app.routes'; // If you're using app.routes.ts for routing
 
@@ -12,10 +12,9 @@ import { routes } from './app.routes'; // If you're using app.routes.ts for rout
     ],
     imports: [
         BrowserModule,
-        RouterModule.forRoot(routes) // Set up routing using your appRoutes
-        // ... any other modules you need ...
+        RouterModule.forRoot(routes),
+        
     ],
     providers: [],
-    bootstrap: [AppComponent]
 })
 export class AppModule { }

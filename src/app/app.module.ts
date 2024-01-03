@@ -2,9 +2,9 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
-import { MapComponent } from '../app/map/map.component'; // Adjust path as necessary
+import { MapComponent } from '../app/map/map.component'; 
 
-import { routes } from './app.routes'; // If you're using app.routes.ts for routing
+import { routes } from './app.routes'; 
 
 @NgModule({
     declarations: [
@@ -12,7 +12,7 @@ import { routes } from './app.routes'; // If you're using app.routes.ts for rout
     imports: [
         BrowserModule,
         RouterModule.forRoot(routes),
-        MapComponent // Add MapComponent to imports
+        MapComponent 
     ],
     providers: [],
 })

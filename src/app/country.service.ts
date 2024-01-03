@@ -26,4 +26,16 @@ export class CountryService {
     }
     return null;
   }
+  getFlagUrl(countryCode: string): string {
+    // Use a fixed width for the flag, or adjust as needed
+      let url = `https://flagcdn.com/${countryCode.toLowerCase()}.svg`;
+      
+    return `https://flagcdn.com/${countryCode.toLowerCase()}.svg`;
+    
+  }
+ applyFlagToCountry(pathElement: SVGPathElement, countryCode: string): void {
+  const patternUrl = `url(#flag-${countryCode})`;
+  console.log('Pattern URL:', patternUrl);
+  pathElement.style.fill = patternUrl;
+}
 }

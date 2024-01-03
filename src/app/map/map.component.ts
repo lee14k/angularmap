@@ -4,9 +4,10 @@ import * as am5map from "@amcharts/amcharts5/map";
 import am5geodata_worldLow from "@amcharts/amcharts5-geodata/worldLow";
 
 @Component({
-    selector: 'app-map',
-    templateUrl: './map.component.html',
-    styleUrls: ['./map.component.css']
+  selector: 'app-map',
+  standalone: true,
+  templateUrl: './map.component.html',
+  styleUrls: ['./map.component.css']
 })
 export class MapComponent implements OnInit, OnDestroy {
     private root: am5.Root | undefined;
